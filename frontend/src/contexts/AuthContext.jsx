@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
 
-  axios.defaults.baseURL = 'http://localhost:5000'; // Or use Vite proxy
+  axios.defaults.baseURL = 'https://collabsphere-m4mc.onrender.com'; // Or use Vite proxy
 
   useEffect(() => {
     if (token) {
