@@ -24,7 +24,8 @@ const allowedOrigins = [
     'http://localhost:5175',
     'http://localhost:5176',
     'http://localhost:5177',
-    'http://localhost:5178'
+    'http://localhost:5178',
+    process.env.FRONTEND_URL
 ];
 
 app.use(cors({
@@ -47,6 +48,16 @@ app.use('/api/teams', require('./routes/teamRoutes'));
 app.use('/api/documents', require('./routes/documentRoutes'));
 app.use('/api/channels', require('./routes/channelRoutes'));
 app.use('/api/messages', require('./routes/messageRoutes'));
+
+app.get('/', (req, res) => {
+    res.send(`
+        <div style="font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f8fafc;">
+            <h1 style="color: #2563eb;">CollabSphere API</h1>
+            <p style="color: #64748b;">The backend server is running successfully in <b>${process.env.NODE_ENV}</b> mode.</p>
+            <a href="/api/health" style="color: #2563eb; text-decoration: none; border: 1px solid #2563eb; padding: 10px 20px; border-radius: 8px;">Check Health Status</a>
+        </div>
+    `);
+});
 
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'Platform is up and running' });
